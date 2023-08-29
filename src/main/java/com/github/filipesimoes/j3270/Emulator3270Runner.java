@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Emulator3270Runner implements Runnable {
 
-  private int scriptPort;
+  private final int scriptPort;
 
   private boolean visible = false;
   private boolean nvt = false;
