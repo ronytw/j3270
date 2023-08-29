@@ -184,4 +184,7 @@ public class Emulator implements Closeable, AutoCloseable {
     return this.commander.execute(command);
   }
 
+  public String getScreenContent() {
+    return execute(new PrintTextCommand());
+  }
 }
