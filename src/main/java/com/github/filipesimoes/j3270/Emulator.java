@@ -62,7 +62,7 @@ public class Emulator implements Closeable, AutoCloseable {
   private void waitForEmulator() throws InterruptedException, TimeoutException {
     int attempts = 0;
     while (!runner.isStarted()) {
-      log.debug("Still not started...");
+      log.trace("Still not started...");
       Thread.sleep(50);
       attempts++;
 

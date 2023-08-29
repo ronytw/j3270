@@ -43,7 +43,7 @@ public class TerminalCommander implements Closeable, AutoCloseable {
         log.debug("Connected to 3270");
         return;
       } catch (IOException e) {
-        log.debug("Cannot connect to 3270");
+        log.trace("Cannot connect to 3270");
         Thread.sleep(50);
         attempts++;
       }
