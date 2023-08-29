@@ -12,7 +12,7 @@ public abstract class AbstractCommand<V> implements Command<V> {
 
   private static final Logger LOGGER = Logger.getLogger(AbstractCommand.class.getSimpleName());
 
-  private static final String DATA_PREFIX = " data:";
+  private static final String DATA_PREFIX = "data: ";
 
   private String lastData;
 
