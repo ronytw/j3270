@@ -50,7 +50,7 @@ public class Emulator3270Runner implements Runnable {
 
     args.add(executable);
     args.add("-scriptport");
-    args.add("localhost:" + scriptPort);
+    args.add(String.valueOf(scriptPort));
     args.add("-model");
     args.add(model);
 
@@ -67,9 +67,7 @@ public class Emulator3270Runner implements Runnable {
       Process proc = pb.start();
       int resultCode = proc.waitFor();
       return resultCode == 0;
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    } catch (InterruptedException e) {
+    } catch (IOException | InterruptedException e) {
       throw new RuntimeException(e);
     }
   }
