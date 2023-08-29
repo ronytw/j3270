@@ -7,8 +7,8 @@ public class MoveCursorCommand extends AbstractCommand<Void> {
 
   public MoveCursorCommand(int row, int col) {
     super();
-    this.row = row;
-    this.col = col;
+    this.row = row - 1;
+    this.col = col - 1;
   }
 
   @Override

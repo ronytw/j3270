@@ -9,8 +9,8 @@ public class AsciiRCLCommand extends AbstractCommand<String> {
   private String ascii = null;
 
   public AsciiRCLCommand(int row, int col, int length) {
-    this.row = row;
-    this.col = col;
+    this.row = row - 1;
+    this.col = col - 1;
     this.length = length;
   }
 
