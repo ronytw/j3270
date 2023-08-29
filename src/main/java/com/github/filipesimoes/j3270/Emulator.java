@@ -17,7 +17,9 @@ import com.github.filipesimoes.j3270.command.MoveCursorCommand;
 import com.github.filipesimoes.j3270.command.SendKeysCommand;
 import com.github.filipesimoes.j3270.command.SendStringCommand;
 import com.github.filipesimoes.j3270.command.WaitCommand;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Emulator implements Closeable, AutoCloseable {
 
   private ExecutorService executorService;
@@ -46,7 +48,7 @@ public class Emulator implements Closeable, AutoCloseable {
     this.commander = new TerminalCommander(scriptPort);
   }
 
-  public void start() throws UnknownHostException, IOException, TimeoutException {
+  public void start() throws IOException, TimeoutException {
     this.executorService.submit(runner);
 
     try {
@@ -60,6 +62,7 @@ public class Emulator implements Closeable, AutoCloseable {
   private void waitForEmulator() throws InterruptedException, TimeoutException {
     int attempts = 0;
     while (!runner.isStarted()) {
+      log.debug("Still not started...");
       Thread.sleep(50);
       attempts++;
 
@@ -67,6 +70,7 @@ public class Emulator implements Closeable, AutoCloseable {
         throw new TimeoutException("Emulator start timed out.");
       }
     }
+    log.debug("Runner started");
   }
 
   @Override

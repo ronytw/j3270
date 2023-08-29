@@ -1,16 +1,13 @@
 package com.github.filipesimoes.j3270;
 
-import java.io.BufferedReader;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
+@Slf4j
 public class TerminalCommander implements Closeable, AutoCloseable {
 
   private int scriptPort;
@@ -28,14 +25,14 @@ public class TerminalCommander implements Closeable, AutoCloseable {
     return command.execute(writer, reader);
   }
 
-  public void connect() throws UnknownHostException, IOException, TimeoutException {
+  public void connect() throws IOException, TimeoutException {
     try {
       waitForSocket();
     } catch (InterruptedException e) {
       throw new TimeoutException("Script socket connection timed out.");
     }
-    writer = new OutputStreamWriter(socket.getOutputStream(), Charset.forName("ASCII"));
-    reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName("ASCII")));
+    writer = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.US_ASCII);
+    reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.US_ASCII));
   }
 
   private void waitForSocket() throws InterruptedException, TimeoutException {
@@ -43,8 +40,10 @@ public class TerminalCommander implements Closeable, AutoCloseable {
     while (attempts < 10) {
       try {
         socket = new Socket("localhost", scriptPort);
+        log.debug("Connected to 3270");
         return;
       } catch (IOException e) {
+        log.debug("Cannot connect to 3270");
         Thread.sleep(50);
         attempts++;
       }
