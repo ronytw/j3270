@@ -1,13 +1,13 @@
 package com.github.filipesimoes.j3270;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
-@Slf4j
+@Log
 public class TerminalCommander implements Closeable, AutoCloseable {
 
   private int scriptPort;
@@ -40,10 +40,10 @@ public class TerminalCommander implements Closeable, AutoCloseable {
     while (attempts < 10) {
       try {
         socket = new Socket("localhost", scriptPort);
-        log.debug("Connected to 3270");
+        log.fine("Connected to 3270");
         return;
       } catch (IOException e) {
-        log.trace("Cannot connect to 3270");
+        log.finer("Cannot connect to 3270");
         Thread.sleep(50);
         attempts++;
       }

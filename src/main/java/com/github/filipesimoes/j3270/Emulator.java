@@ -1,25 +1,16 @@
 package com.github.filipesimoes.j3270;
 
+import com.github.filipesimoes.j3270.command.*;
+import lombok.extern.java.Log;
+
 import java.io.Closeable;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 
-import com.github.filipesimoes.j3270.command.AsciiRCLCommand;
-import com.github.filipesimoes.j3270.command.AsciiRCRCCommand;
-import com.github.filipesimoes.j3270.command.ConnectCommand;
-import com.github.filipesimoes.j3270.command.ExpectTextCommand;
-import com.github.filipesimoes.j3270.command.IsConnectedCommand;
-import com.github.filipesimoes.j3270.command.MoveCursorCommand;
-import com.github.filipesimoes.j3270.command.SendKeysCommand;
-import com.github.filipesimoes.j3270.command.SendStringCommand;
-import com.github.filipesimoes.j3270.command.WaitCommand;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+@Log
 public class Emulator implements Closeable, AutoCloseable {
 
   private ExecutorService executorService;
@@ -62,7 +53,7 @@ public class Emulator implements Closeable, AutoCloseable {
   private void waitForEmulator() throws InterruptedException, TimeoutException {
     int attempts = 0;
     while (!runner.isStarted()) {
-      log.trace("Still not started...");
+      log.finer("Still not started...");
       Thread.sleep(50);
       attempts++;
 
@@ -70,7 +61,7 @@ public class Emulator implements Closeable, AutoCloseable {
         throw new TimeoutException("Emulator start timed out.");
       }
     }
-    log.debug("Runner started");
+    log.fine( "Runner started");
   }
 
   @Override
