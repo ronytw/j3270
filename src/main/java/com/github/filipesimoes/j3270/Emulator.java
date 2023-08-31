@@ -13,6 +13,8 @@ import java.util.concurrent.TimeoutException;
 @Log
 public class Emulator implements Closeable, AutoCloseable {
 
+  private static final int DEFAULT_SCRIPT_PORT = 3270;
+
   private ExecutorService executorService;
   private boolean ownsExecutor = false;
 
@@ -20,7 +22,7 @@ public class Emulator implements Closeable, AutoCloseable {
   private TerminalCommander commander;
 
   public Emulator() {
-    this(3270);
+    this(DEFAULT_SCRIPT_PORT);
   }
 
   public Emulator(int scriptPort) {
@@ -29,7 +31,7 @@ public class Emulator implements Closeable, AutoCloseable {
   }
 
   public Emulator(ExecutorService executorService) {
-    this(3270, executorService);
+    this(DEFAULT_SCRIPT_PORT, executorService);
   }
 
   public Emulator(int scriptPort, ExecutorService executorService) {
