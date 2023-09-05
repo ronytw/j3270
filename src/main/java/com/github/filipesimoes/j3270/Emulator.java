@@ -159,7 +159,11 @@ public class Emulator implements Closeable, AutoCloseable {
 
   public boolean containsText(int row, int col, String text) {
     String txt = getText(row, col, text.length());
-    return text.equals(txt);
+    boolean result = text.equals(txt);
+    if (!result) {
+      log.fine(String.format("Looking for '%s' @[%d, %d], but found '%s' instead", text, row, col, txt));
+    }
+    return result;
   }
 
   public void sendEnter() {
